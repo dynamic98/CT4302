@@ -44,20 +44,20 @@ console.log('Answer: ' + obj['밥']['강아지']['아침']); //// debugging
 app.post('/', function (request, response) {
     console.log('request: \n' + JSON.stringify(request.body));
     //var item = req.body.result.parameters['item'];
-    var what = request.body.queryResult.parameters['what'];
-    var who = request.body.queryResult.parameters['who'];
-    var when = request.body.queryResult.parameters['when'];
+    var object = request.body.queryResult.parameters['object'];
+    var time = request.body.queryResult.parameters['time'];
+    var destination = request.body.queryResult.parameters['destination'];
     
     let action = (request.body.queryResult.action) ? request.body.queryResult.action: 'default';
     
     const actionHandlers = {
-        'what.who.when': () => {
-            let responseToUser = { fulfillmentText: obj[what][who][when]};
+        'object.time.destination': () => {
+            let responseToUser = { fulfillmentText: obj[object][time][destination]};
             sendResponse(responseToUser);
         },
         
         'default': () => {
-            let responseToUser = { fulfillmentText: '0' };
+            let responseToUser = { fulfillmentText: '정보가 없는 내용입니다.' };
             sendResponse(responseToUser);
         }
     };
